@@ -63,14 +63,14 @@ struct AccountView: View {
     var menu: some View {
         Section {
             //first way
-            NavigationLink(destination: ContentView()) {
+            NavigationLink(destination: HomeView()) {
                 Label("Settings", systemImage: "gear")
             }
             //second way
             NavigationLink { Text("SwiftUI") } label: {
                 Label("Billing", systemImage: "creditcard")
             }
-            NavigationLink {} label: {
+            NavigationLink { HomeView() } label: {
                 Label("Help", systemImage: "questionmark")
             }
         }

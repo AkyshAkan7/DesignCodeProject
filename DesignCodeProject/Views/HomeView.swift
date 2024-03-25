@@ -1,13 +1,13 @@
 //
-//  ContentView.swift
+//  HomeView.swift
 //  DesignCodeProject
 //
-//  Created by Akysh Akan on 11.03.2024.
+//  Created by Akysh Akan on 25.03.2024.
 //
 
 import SwiftUI
 
-struct ContentView: View {
+struct HomeView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8.0) {
             Spacer()
@@ -25,7 +25,7 @@ struct ContentView: View {
                 .foregroundStyle(.linearGradient(colors: [.primary, .primary.opacity(0.5)], startPoint: .topLeading, endPoint: .bottomTrailing))
             Text("20 sections - 3 hours".uppercased())
                 .font(.footnote)
-                .fontWeight(.semibold) 
+                .fontWeight(.semibold)
                 .foregroundStyle(.secondary)
             Text("Build an iOS app for iOS 15 with custom layouts, animations and ... ")
                 .font(.footnote)
@@ -56,17 +56,7 @@ struct ContentView: View {
         )
     }
 }
- 
-//#Preview {
-//    ContentView()
-//}
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            ContentView()
-            ContentView()
-                .preferredColorScheme(.dark)
-        }
-    }
+#Preview {
+    HomeView()
 }

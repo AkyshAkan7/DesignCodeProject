@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct BlobView: View {
+    @State var appear = false
+    
     var body: some View {
         TimelineView(.animation) { timeline in
             let now = timeline.date.timeIntervalSinceReferenceDate
@@ -27,6 +29,12 @@ struct BlobView: View {
                 )
             }
             .frame(width: 400, height: 414)
+            .rotationEffect(.degrees(appear ? 360 : 0))
+        }
+        .onAppear {
+            withAnimation(.linear(duration: 20).repeatForever(autoreverses: true)) {
+                appear = true
+            }
         }
     }
     

@@ -12,6 +12,8 @@ struct HomeView: View {
     @Namespace var namespace
     @State var show = false
     @State var showStatusBar = true
+    @State var selectedId = UUID()
+    @EnvironmentObject var model: Model
     
     var body: some View {
         ZStack {
@@ -30,12 +32,17 @@ struct HomeView: View {
                     .padding(.horizontal, 20)
                 
                 if !show {
-                    CourseItem(namespace: namespace, show: $show)
-                        .onTapGesture {
-                            withAnimation(.openCard) {
-                                show.toggle()
-                            }
-                        }
+                    cards
+                } else {
+                    ForEach(courses) { _ in
+                        Rectangle()
+                            .fill(.white)
+                            .frame(height: 300)
+                            .cornerRadius(30)
+                            .shadow(color: Color("Shadow"), radius: 20, x: 0, y: 10)
+                            .opacity(0.3)
+                        .padding(.horizontal, 30)
+                    }
                 }
             }
             .coordinateSpace(name: "scroll")
@@ -47,7 +54,7 @@ struct HomeView: View {
             )
             
             if show {
-                CourseView(namespace: namespace, show: $show)
+                detail
             }
         }
         .statusBar(hidden: !showStatusBar)
@@ -62,6 +69,8 @@ struct HomeView: View {
             }
         }
     }
+    
+    // MARK: - Views
     
     var scrollDetection: some View {
         GeometryReader { proxy in
@@ -81,7 +90,7 @@ struct HomeView: View {
     
     var featured: some View {
         TabView {
-            ForEach(courses) { course in
+            ForEach(featuredCourses) { course in
                 GeometryReader { proxy in
                     let minx = proxy.frame(in: .global).minX
                     
@@ -111,8 +120,37 @@ struct HomeView: View {
                 .offset(x: 250, y: -100)
         )
     }
+    
+    var cards: some View {
+        ForEach(courses) { course in
+            CourseItem(namespace: namespace, course: course, show: $show)
+                .onTapGesture {
+                    withAnimation(.openCard) {
+                        show.toggle()
+                        model.showDetail.toggle()
+                        showStatusBar = false
+                        selectedId = course.id
+                    }
+                }
+        }
+    }
+    
+    var detail: some View {
+        ForEach(courses) { course in
+            if course.id == selectedId {
+                CourseView(namespace: namespace, course: course, show: $show)
+                    .zIndex(1)
+                // при открытии карточки скрывает задний фон
+                // при закрытии карточки не показывает задний фон почти до завершения закрытия
+                    .transition(.asymmetric(
+                        insertion: .opacity.animation(.easeInOut(duration: 0.1)),
+                        removal: .opacity.animation(.easeInOut(duration: 0.3).delay(0.2))))
+            }
+        }
+    }
 }
 
 #Preview {
     HomeView()
+        .environmentObject(Model())
 }

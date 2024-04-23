@@ -15,3 +15,7 @@ struct DesignCodeProjectApp: App {
         }
     }
 }
+
+#Preview {
+    ContentView()
+}

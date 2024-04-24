@@ -41,70 +41,47 @@ struct CourseView: View {
     // MARK: - Views
     
     var cover: some View {
-        VStack {
-            Spacer()
-        }
-        .frame(maxWidth: .infinity)
-        .frame(height: 500)
-        .foregroundStyle(.black)
-        .background(
-            Image(course.image)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .matchedGeometryEffect(id: "image\(course.id)", in: namespace)
-        )
-        .background(
-            Image(course.background)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .matchedGeometryEffect(id: "background\(course.id)", in: namespace)
-        )
-        .mask(
-            RoundedRectangle(cornerRadius: 30, style: .continuous)
-                .matchedGeometryEffect(id: "mask\(course.id)", in: namespace)
-        )
-        .overlay(
-            VStack(alignment: .leading, spacing: 12) {
-                Text(course.title)
-                    .font(.largeTitle.bold())
-                    .matchedGeometryEffect(id: "title\(course.id)", in: namespace)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                
-                Text(course.subtitle)
-                    .font(.footnote.weight(.semibold))
-                    .matchedGeometryEffect(id: "subtitle\(course.id)", in: namespace)
-                
-                Text(course.text)
-                    .font(.footnote)
-                    .matchedGeometryEffect(id: "text\(course.id)", in: namespace)
-                
-                Divider()
-                    .opacity(appear[0] ? 1 : 0)
-                
-                HStack {
-                    Image("Avatar Default")
-                        .resizable()
-                        .frame(width: 26, height: 26)
-                        .cornerRadius(10)
-                        .padding(8)
-                        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
-                        .strokeStyle(cornerRadius: 18)
-                    
-                    Text("Taught by Meng To")
-                        .font(.footnote)
-                }
-                .opacity(appear[1] ? 1 : 0)
+        // Geometry Reader for parallax effect
+        GeometryReader { proxy in
+            let minY = proxy.frame(in: .global).minY
+            let scrollY = minY > 0 ? minY : 0
+            
+            VStack {
+                Spacer()
             }
-                .padding(20)
-                .background(
-                    Rectangle()
-                        .fill(.ultraThinMaterial)
-                        .mask(RoundedRectangle(cornerRadius: 30, style: .continuous))
-                        .matchedGeometryEffect(id: "blur\(course.id)", in: namespace)
-                )
-                .offset(y: 250)
-                .padding(20)
-        )
+            .frame(maxWidth: .infinity)
+            .frame(height: 500 + scrollY)
+            .foregroundStyle(.black)
+            .background(
+                Image(course.image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .matchedGeometryEffect(id: "image\(course.id)", in: namespace)
+                    // make it slower than actual scroll
+                    .offset(y: scrollY * -0.8)
+            )
+            .background(
+                Image(course.background)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .matchedGeometryEffect(id: "background\(course.id)", in: namespace)
+                    .offset(y: -scrollY)
+                    // scaling background
+                    .scaleEffect(scrollY / 1000 + 1)
+                    // blur
+                    .blur(radius: scrollY / 10)
+            )
+            .mask(
+                RoundedRectangle(cornerRadius: 30, style: .continuous)
+                    .matchedGeometryEffect(id: "mask\(course.id)", in: namespace)
+                    .offset(y: -scrollY)
+            )
+            .overlay(
+                overlayContent
+                    .offset(y: scrollY * -0.6)
+            )
+        }
+        .frame(height: 500)
     }
     
     var content: some View {
@@ -138,6 +115,49 @@ struct CourseView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
         .padding(20)
         .ignoresSafeArea()
+    }
+    
+    var overlayContent: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text(course.title)
+                .font(.largeTitle.bold())
+                .matchedGeometryEffect(id: "title\(course.id)", in: namespace)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+            Text(course.subtitle)
+                .font(.footnote.weight(.semibold))
+                .matchedGeometryEffect(id: "subtitle\(course.id)", in: namespace)
+            
+            Text(course.text)
+                .font(.footnote)
+                .matchedGeometryEffect(id: "text\(course.id)", in: namespace)
+            
+            Divider()
+                .opacity(appear[0] ? 1 : 0)
+            
+            HStack {
+                Image("Avatar Default")
+                    .resizable()
+                    .frame(width: 26, height: 26)
+                    .cornerRadius(10)
+                    .padding(8)
+                    .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+                    .strokeStyle(cornerRadius: 18)
+                
+                Text("Taught by Meng To")
+                    .font(.footnote)
+            }
+            .opacity(appear[1] ? 1 : 0)
+        }
+            .padding(20)
+            .background(
+                Rectangle()
+                    .fill(.ultraThinMaterial)
+                    .mask(RoundedRectangle(cornerRadius: 30, style: .continuous))
+                    .matchedGeometryEffect(id: "blur\(course.id)", in: namespace)
+            )
+            .offset(y: 250)
+            .padding(20)
     }
     
     // MARK: - Functions

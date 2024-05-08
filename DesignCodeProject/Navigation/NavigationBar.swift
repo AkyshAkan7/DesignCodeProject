@@ -34,7 +34,7 @@ struct NavigationBar: View {
                      Image(systemName: "magnifyingglass")
                         .font(.body.weight(.bold))
                         .frame(width: 36, height: 36)
-                        .foregroundStyle(.secondary)
+                        .foregroundColor(.secondary)
                         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
                     .strokeStyle(cornerRadius: 14)
                 }

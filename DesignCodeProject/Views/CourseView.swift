@@ -26,6 +26,9 @@ struct CourseView: View {
                     .padding(.bottom, 200)
                     .opacity(appear[2] ? 1 : 0)
             }
+            .coordinateSpace(name: "scroll")
+            .onAppear { model.showDetail = true }
+            .onDisappear { model.showDetail = false }
             .background(Color("Background"))
             // left to right gesture
             .mask(RoundedRectangle(cornerRadius: viewState.width / 3, style: .continuous))
@@ -51,7 +54,7 @@ struct CourseView: View {
     var cover: some View {
         // Geometry Reader for parallax effect
         GeometryReader { proxy in
-            let minY = proxy.frame(in: .global).minY
+            let minY = proxy.frame(in: .named("scroll")).minY
             let scrollY = minY > 0 ? minY : 0
             
             VStack {
@@ -118,7 +121,7 @@ struct CourseView: View {
         } label: {
             Image(systemName: "xmark")
                 .font(.body.weight(.bold))
-                .foregroundStyle(.secondary)
+                .foregroundColor(.secondary)
                 .padding(8)
                 .background(.ultraThinMaterial, in: Circle())
         }

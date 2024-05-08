@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D70E6B022BEA82DF0033910C /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70E6B012BEA82DF0033910C /* SearchView.swift */; };
+		D70E6B042BEAAD710033910C /* Suggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70E6B032BEAAD710033910C /* Suggestion.swift */; };
 		D7238E892BADD73E00F02A83 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7238E882BADD73E00F02A83 /* TabBar.swift */; };
 		D7238E8B2BB06F0800F02A83 /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7238E8A2BB06F0800F02A83 /* Tab.swift */; };
 		D7238E8D2BB1151500F02A83 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7238E8C2BB1151500F02A83 /* HomeView.swift */; };
@@ -33,6 +34,7 @@
 
 /* Begin PBXFileReference section */
 		D70E6B012BEA82DF0033910C /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		D70E6B032BEAAD710033910C /* Suggestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Suggestion.swift; sourceTree = "<group>"; };
 		D7238E882BADD73E00F02A83 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		D7238E8A2BB06F0800F02A83 /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
 		D7238E8C2BB1151500F02A83 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				D7CB30812BB9E99B006274AA /* PreferenceKeys.swift */,
 				D7CB30852BBB1464006274AA /* Course.swift */,
 				D7CAE6722BD855960066EBAC /* Model.swift */,
+				D70E6B032BEAAD710033910C /* Suggestion.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 				D7D0F09C2BA9AAB60004066A /* AccountView.swift in Sources */,
 				D791DD082BD57CDB00D35105 /* CourseView.swift in Sources */,
 				D7CD21DC2BAC8AEA006DE7D7 /* HexagonView.swift in Sources */,
+				D70E6B042BEAAD710033910C /* Suggestion.swift in Sources */,
 				D7CAE6712BD7F9570066EBAC /* Animation+Extension.swift in Sources */,
 				D7F65B042BA1EFEE00504989 /* Styles.swift in Sources */,
 				D7CB30882BBCCA7B006274AA /* MatchedView.swift in Sources */,

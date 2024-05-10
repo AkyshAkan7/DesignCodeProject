@@ -1,13 +1,13 @@
 //
-//  SignUpView.swift
+//  SignInView.swift
 //  DesignCodeProject
 //
-//  Created by Akysh Akan on 09.05.2024.
+//  Created by Akysh Akan on 10.05.2024.
 //
 
 import SwiftUI
 
-struct SignUpView: View {
+struct SignInView: View {
     enum Field: Hashable {
         case email
         case password
@@ -25,7 +25,7 @@ struct SignUpView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Sign up")
+            Text("Sign in")
                 .font(.largeTitle).bold()
             Text("Access 120+ hours of courses, tutorials and livestreams")
                 .font(.headline)
@@ -54,7 +54,7 @@ struct SignUpView: View {
                 }
             
             Button {} label: {
-                Text("Create an account")
+                Text("Sign in")
                     .frame(maxWidth: .infinity)
             }
             .font(.headline)
@@ -65,20 +65,17 @@ struct SignUpView: View {
             .tint(.accentColor)
             // button size
             .controlSize(.large)
+            .shadow(color: Color("Shadow").opacity(0.2), radius: 30, x: 0, y: 30)
             
             Group {
-                Text("By clicking on ")
-                + Text("_Create an account_").foregroundStyle(.primary.opacity(0.7))
-                + Text(", you agree to our **Terms of Service** and **[Privacy Policy](https://designcode.io)**")
-                
                 Divider()
                 
                 HStack {
-                    Text ("Already have an account?")
+                    Text ("No account yet?")
                     Button {
-                        model.selectedModal = .signIn
+                        model.selectedModal = .signUp
                     } label: {
-                        Text("**Sign in**")
+                        Text("**Sign up**")
                     }
                 }
             }
@@ -97,11 +94,6 @@ struct SignUpView: View {
         )
         .coordinateSpace(name: "container")
         .strokeStyle(cornerRadius: 30)
-        .shadow(color: Color("Shadow").opacity(0.2), radius: 30, x: 0, y: 30)
-        .padding(20)
-        .background(
-            Image("Blob 1").offset(x: 200, y: -100)
-        )
         .onChange(of: focusedField) { oldValue, newValue in
             withAnimation {
                 if newValue == .email {
@@ -123,6 +115,6 @@ struct SignUpView: View {
 }
 
 #Preview {
-    SignUpView()
+    SignInView()
         .environmentObject(Model())
 }

@@ -13,6 +13,7 @@ struct AccountView: View {
     @State var address: Address = Address(id: 1, country: "Kazakhstan")
     @Environment(\.dismiss) var dismiss
     @AppStorage("isLogged") var isLogged = false
+    @AppStorage("isLiteMode") var isLiteMode = true
     @ObservedObject var coinModel = CoinModel()
 
     func fetchAddress() async {
@@ -33,6 +34,13 @@ struct AccountView: View {
                 profile
                 
                 menu
+                
+                Section {
+                    Toggle(isOn: $isLiteMode, label: {
+                        Label("Lite Mode", systemImage: isLiteMode ? "tortoise" : "hare")
+                    })
+                }
+                .foregroundStyle(.primary)
                 
                 links
                 

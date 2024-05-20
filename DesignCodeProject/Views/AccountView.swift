@@ -13,7 +13,8 @@ struct AccountView: View {
     @State var address: Address = Address(id: 1, country: "Kazakhstan")
     @Environment(\.dismiss) var dismiss
     @AppStorage("isLogged") var isLogged = false
-    
+    @ObservedObject var coinModel = CoinModel()
+
     func fetchAddress() async {
         do {
             let url = URL(string: "https://random-data-api.com/api/v2/addresses")!
@@ -35,6 +36,8 @@ struct AccountView: View {
                 
                 links
                 
+                coins
+                
                 Button {
                     isLogged = false
                     dismiss()
@@ -46,8 +49,12 @@ struct AccountView: View {
             .task {
                 await fetchAddress()
             }
+            .task {
+                await coinModel.fetchCoins()
+            }
             .refreshable {
                 await fetchAddress()
+                await coinModel.fetchCoins()
             }
             .listStyle(.insetGrouped)
             .navigationTitle("Account")
@@ -144,6 +151,29 @@ struct AccountView: View {
         }
         .listRowSeparator(.hidden)
         .foregroundStyle(.primary)
+    }
+    
+    var coins: some View {
+        Section("Coins") {
+            ForEach(coinModel.coins) { coin in
+                HStack {
+                    AsyncImage(url: URL(string: coin.logo)) { image in
+                        image.resizable()
+                            .aspectRatio(contentMode: .fit)
+                    } placeholder: {
+                        ProgressView()
+                    }
+                    .frame(width: 32, height: 32)
+                    
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(coin.coin_name)
+                        Text(coin.acronym)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+            }
+        }
     }
     
     var pinButton: some View {

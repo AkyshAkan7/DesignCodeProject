@@ -38,7 +38,7 @@ struct NavigationBar: View {
                         .frame(width: 36, height: 36)
                         .foregroundColor(.secondary)
                         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-                    .strokeStyle(cornerRadius: 14)
+                        .strokeStyle(cornerRadius: 14)
                 }
                 .sheet(isPresented: $showSearch, content: {
                     SearchView()

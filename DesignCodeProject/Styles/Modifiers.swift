@@ -26,23 +26,6 @@ struct OutlineModifier: ViewModifier {
     }
 }
 
-struct OutlineVerticalModifier: ViewModifier {
-    var cornerRadius: CGFloat = 20
-    
-    func body(content: Content) -> some View {
-        content.overlay(
-            RoundedRectangle(cornerRadius: cornerRadius)
-                .stroke(
-                    .linearGradient(
-                        colors: [.black.opacity(0.2), .white.opacity(0.6)],
-                        startPoint: .top,
-                        endPoint: .bottom)
-                )
-                .blendMode(.overlay)
-        )
-    }
-}
-
 struct SlideFadeIn: ViewModifier {
     var show: Bool
     var offset: Double

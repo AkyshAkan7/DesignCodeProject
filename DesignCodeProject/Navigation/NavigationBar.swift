@@ -19,7 +19,7 @@ struct NavigationBar: View {
     var body: some View {
         ZStack {
             
-            Rectangle()
+            Color.clear
                 .frame(maxWidth: .infinity)
                 .frame(height: 100)
                 .background(.ultraThinMaterial)

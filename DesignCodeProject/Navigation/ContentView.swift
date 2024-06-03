@@ -1,48 +1,52 @@
 //
 //  ContentView.swift
-//  DesignCodeProject
+//  Shared
 //
-//  Created by Akysh Akan on 11.03.2024.
+//  Created by Akysh Akan on 2024-06-16.
 //
 
 import SwiftUI
 
 struct ContentView: View {
-    @AppStorage("selectedTab") var selectedTab: Tab = .home
-    @AppStorage("showModal") var showModal = false
     @EnvironmentObject var model: Model
+    @AppStorage("selectedTab") var selectedTab: Tab = .home
+    @AppStorage("showAccount") var showAccount = false
+    
+    init() {
+        showAccount = false
+    }
     
     var body: some View {
-        ZStack(alignment: .bottom) {
-            
-            switch selectedTab {
-            case .home:
-                HomeView()
-            case .explore:
-                ExploreView()
-            case .notifications:
-                AccountView()
-            case .library:
-                AccountView()
+        ZStack {
+            Group {
+                switch selectedTab {
+                case .home:
+                    HomeView()
+                case .explore:
+                    ExploreView()
+                case .notifications:
+                    NotificationsView()
+                case .library:
+                    LibraryView()
+                }
+            }
+            .safeAreaInset(edge: .bottom) {
+                VStack {}.frame(height: 44)
             }
             
             TabBar()
-                .offset(y: model.showDetail ? 200 : 0)
             
-            if showModal {
+            if model.showModal {
                 ModalView()
-                    .zIndex(1)
+                    .accessibilityIdentifier("Identifier")
             }
         }
-        .safeAreaInset(edge: .bottom) {
-            Color.clear.frame(height: 44)
+        .dynamicTypeSize(.large ... .xxLarge)
+        .sheet(isPresented: $showAccount) {
+            AccountView()
         }
     }
 }
- 
-//#Preview {
-//    ContentView()
-//}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

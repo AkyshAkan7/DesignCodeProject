@@ -1,39 +1,52 @@
 //
-//  PlayView.swift
-//  DesignCodeProject
+//  PlayButton.swift
+//  PlayButton
 //
-//  Created by Akysh Akan on 21.05.2024.
+//  Created by Akysh Akan on 2024-08-13.
 //
 
 import SwiftUI
 
-struct PlayView: View {
+struct PlayButton: View {
     var body: some View {
-        PlayShape()
-            .fill(Color("Shadow").opacity(0.8))
-            .frame(width: 52, height: 52)
-            .overlay(PlayShape().stroke(.white))
-            .background(
-                PlayShape()
-                    .fill(
-                        .angularGradient(colors: [.blue, .red, .blue], center: .center, startAngle: .degrees(0), endAngle: .degrees(360))
-                    )
-                    .blur(radius: 12)
-            )
-            .offset(x: 2)
-            .frame(width: 120, height: 120)
-            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 46, style: .continuous))
-            .strokeStyle(cornerRadius: 46)
-            .shadow(color: Color("Shadow").opacity(0.2), radius: 30, x: 0, y: 30)
-            .overlay(
-                Text("12:08")
-                    .font(.footnote.weight(.semibold))
-                    .padding(.vertical, 2)
-                    .padding(.horizontal, 4)
-                    .background(Color(UIColor.systemBackground).opacity(0.3))
-                    .cornerRadius(4)
-                    .offset(y: 44)
-            )
+        VStack {
+            PlayShape()
+                .fill(Color(hex: "281B5A").opacity(0.8))
+                .overlay(
+                    PlayShape()
+                        .stroke(.white)
+                )
+                .frame(width: 52, height: 52)
+                .background(
+                    PlayShape()
+                        .fill(
+                            .angularGradient(colors: [.blue, .red, .blue], center: .center, startAngle: .degrees(0), endAngle: .degrees(360))
+                        )
+                        .blur(radius: 12)
+                )
+                .offset(x: 6)
+        }
+        .frame(width: 120, height: 120)
+        .background(.ultraThinMaterial)
+        .cornerRadius(60)
+        .modifier(OutlineOverlay(cornerRadius: 60))
+        .overlay(CircularView(value: 0.25, lineWidth: 8))
+        .shadow(color: Color("Shadow").opacity(0.2), radius: 30, x: 0, y: 30)
+        .overlay(
+            Text("12:08")
+                .font(.footnote.weight(.semibold))
+                .padding(2)
+                .padding(.horizontal, 2)
+                .background(Color(.systemBackground).opacity(0.3))
+                .cornerRadius(4)
+                .offset(y: 44)
+        )
+    }
+}
+
+struct PlayButton_Previews: PreviewProvider {
+    static var previews: some View {
+        PlayButton()
     }
 }
 
@@ -96,8 +109,4 @@ struct PlayShape: Shape {
         path.closeSubpath()
         return path
     }
-}
-
-#Preview {
-    PlayView()
 }

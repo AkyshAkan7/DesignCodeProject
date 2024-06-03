@@ -1,8 +1,8 @@
 //
 //  SectionView.swift
-//  DesignCodeProject
+//  SectionView
 //
-//  Created by Akysh Akan on 21.05.2024.
+//  Created by Akysh Akan on 2024-08-11.
 //
 
 import SwiftUI
@@ -11,13 +11,13 @@ struct SectionView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.presentationMode) var presentationMode
     
-    var section: CourseSection = courseSections[0]
+    @Binding var section: CourseSection
     
     var body: some View {
         ZStack {
             ScrollView {
                 cover
-                    .overlay(PlayView())
+                    .overlay(PlayButton())
                 content
                     .padding(.vertical, 80)
             }
@@ -25,20 +25,20 @@ struct SectionView: View {
             .background(Color("Background"))
             .ignoresSafeArea()
             
-//            Button {
-//                presentationMode.wrappedValue.dismiss()
-//            } label: {
-//                CloseButton()
-//            }
-//            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-//            .padding(20)
-//            .ignoresSafeArea()
-//            
-//            LogoView(image: section.logo)
-//                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-//                .padding(20)
-//                .ignoresSafeArea()
-//                .accessibility(hidden: true)
+            Button {
+                presentationMode.wrappedValue.dismiss()
+            } label: {
+                CloseButton()
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+            .padding(20)
+            .ignoresSafeArea()
+            
+            LogoView(image: section.logo)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                .padding(20)
+                .ignoresSafeArea()
+                .accessibility(hidden: true)
         }
         .zIndex(1)
     }
@@ -91,20 +91,20 @@ struct SectionView: View {
                 Divider()
                     .foregroundColor(.secondary)
                 
-//                HStack {
-//                    LogoView(image: "Avatar 1")
-//                        .accessibility(hidden: true)
-//                    Text("Taught by Meng To and Stephanie Diep")
-//                        .font(.footnote.weight(.medium))
-//                        .foregroundStyle(.secondary)
-//                }
-//                .accessibilityElement(children: .combine)
+                HStack {
+                    LogoView(image: "Avatar 1")
+                        .accessibility(hidden: true)
+                    Text("Taught by Akysh Akan and Stephanie Diep")
+                        .font(.footnote.weight(.medium))
+                        .foregroundStyle(.secondary)
+                }
+                .accessibilityElement(children: .combine)
             }
                 .padding(20)
                 .background(
                     Rectangle()
                         .fill(.ultraThinMaterial)
-//                        .backgroundStyle(cornerRadius: 30)
+                        .backgroundStyle(cornerRadius: 30)
                 )
                 .frame(maxHeight: .infinity, alignment: .bottom)
                 .padding(20)
@@ -128,6 +128,8 @@ struct SectionView: View {
     }
 }
 
-#Preview {
-    SectionView()
+struct SectionView_Previews: PreviewProvider {
+    static var previews: some View {
+        SectionView(section: .constant(courseSections[0]))
+    }
 }

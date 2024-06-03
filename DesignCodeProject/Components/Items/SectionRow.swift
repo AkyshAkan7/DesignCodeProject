@@ -1,14 +1,14 @@
 //
 //  SectionRow.swift
-//  DesignCodeProject
+//  SectionRow
 //
-//  Created by Akysh Akan on 20.05.2024.
+//  Created by Akysh Akan on 2024-08-13.
 //
 
 import SwiftUI
 
 struct SectionRow: View {
-    var section: CourseSection = courseSections[0]
+    var section: CourseSection
     
     var body: some View {
         HStack(alignment: .top, spacing: 16) {
@@ -30,14 +30,16 @@ struct SectionRow: View {
                     .font(.caption.weight(.medium))
                     .foregroundStyle(.secondary)
                 ProgressView(value: section.progress)
-                    .tint(.white)
+                    .accentColor(.white)
                     .frame(maxWidth: 132)
             }
+            Spacer()
         }
-        .padding(20)
     }
 }
 
-#Preview {
-    SectionRow()
+struct SectionRow_Previews: PreviewProvider {
+    static var previews: some View {
+        SectionRow(section: courseSections[0])
+    }
 }

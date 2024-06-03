@@ -1,13 +1,13 @@
 //
 //  AnimatableFontModifier.swift
-//  DesignCodeProject
+//  AnimatableFontModifier
 //
-//  Created by Akysh Akan on 01.04.2024.
+//  Created by Akysh Akan on 2024-08-03.
 //
 
 import SwiftUI
 
-struct AnimatableFontModifier: Animatable, ViewModifier {
+struct AnimatableFontModifier: AnimatableModifier {
     var size: Double
     var weight: Font.Weight = .regular
     var design: Font.Design = .default

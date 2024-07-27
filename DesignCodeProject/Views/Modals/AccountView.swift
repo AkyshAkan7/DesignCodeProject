@@ -63,6 +63,8 @@ struct AccountView: View {
             .navigationTitle("Account")
             .task {
                 await fetchAddress()
+            }
+            .task {
                 await updates.fetchUpdates()
             }
             .refreshable {

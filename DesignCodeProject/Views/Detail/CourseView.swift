@@ -136,7 +136,7 @@ struct CourseView: View {
                     
                     HStack {
                         LogoView(image: "Avatar 1")
-                        Text("Taught by Akysh Akan and Stephanie Diep")
+                        Text("Taught by Akysh Akan")
                             .font(.footnote.weight(.medium))
                             .foregroundStyle(.secondary)
                     }
